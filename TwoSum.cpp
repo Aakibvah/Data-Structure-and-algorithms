@@ -2,6 +2,7 @@
 #include <vector>
 using namespace std;
 /*
+167. Two Sum II - Input Array Is Sorted
 Given an array of integers nums and an integer target, return indices of the two numbers such that they add up to target.
 You may assume that each input would have exactly one solution, and you may not use the same element twice.
 Input: nums = [2,7,11,15], target = 9
@@ -13,23 +14,29 @@ class Solution
 public:
     vector<int> twoSum(vector<int> &nums, int target)
     {
-        int p1 = 0;
-        int p2 = p1 + 1;
-        int ans;
-        while (p2 != p1)
-        {
+        int left = 0;
+        int right = nums.size() - 1;
 
-            ans = target - nums[p1];
-            if (ans == nums[p2])
-                return {p1, p2};
-            else
-                p2++;
-            if (p2 > nums.size() - 1)
+        while (left < right)
+        {
+            if ((nums[left] + nums[right]) == target)
+                return {left + 1, right + 1};
+            else if ((nums[left] + nums[right]) > target)
             {
-                p1++;
-                p2 = p1 + 1;
+                if (nums[left] > nums[right])
+                    left++;
+                else
+                    right--;
+            }
+            else
+            {
+                if (nums[left] < nums[right])
+                    left++;
+                else
+                    right--;
             }
         }
-        return {-1, -1};
+
+        return {0, 0};
     }
 };
