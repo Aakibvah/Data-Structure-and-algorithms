@@ -23,6 +23,9 @@ Output: 1
 // The API isBadVersion is defined for you.
 // bool isBadVersion(int version);
 
+// Runtime: 3 ms, faster than 44.40% of C++ online submissions for First Bad Version.
+// Memory Usage: 6.1 MB, less than 9.00% of C++ online submissions for First Bad Version.
+
 class Solution
 {
 public:
@@ -41,6 +44,39 @@ public:
             {
                 e = mid - 1;
                 badVersion = min(badVersion, mid);
+            }
+            else
+                s = mid + 1;
+        }
+        return badVersion;
+    }
+};
+
+// another solution Runtime: 0 ms,
+// faster than 100.00% of C++ online submissions for First Bad Version.
+// Memory Usage: 6 MB, less than 9.00% of C++ online submissions for First Bad Version.
+
+// The API isBadVersion is defined for you.
+// bool isBadVersion(int version);
+
+class Solution
+{
+public:
+    int firstBadVersion(int n)
+    {
+        int s = 1;
+        int e = n;
+        int mid;
+        int badVersion = n;
+
+        while (s <= e)
+        {
+            mid = e + (s - e) / 2;
+
+            if (isBadVersion(mid))
+            {
+                e = mid - 1;
+                badVersion = mid;
             }
             else
                 s = mid + 1;
