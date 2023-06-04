@@ -16,6 +16,20 @@ void Print(Node *head)
         head = head->next;
     }
 }
+Void Reverse(Node *head)
+{
+    Node *prev = NULL;
+    Node *temp;
+    while (head->next)
+    {
+        temp = head->next;
+        head->next = prev;
+        prev = head;
+        head = temp;
+    }
+
+    Print(head);
+}
 int main()
 {
 
@@ -32,5 +46,6 @@ int main()
     }
 
     Print(head);
+    Reverse(head);
     return 0;
 }
