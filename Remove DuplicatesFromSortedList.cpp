@@ -13,6 +13,7 @@ Success
 Runtime: 18 ms, faster than 8.35% of C++ online submissions for Remove Duplicates from Sorted List.
 Memory Usage: 11.5 MB, less than 67.77% of C++ online submissions for Remove Duplicates from Sorted List.
 */
+// soln 1 using two pointer.
 class Solution
 {
 public:
@@ -41,5 +42,38 @@ public:
         }
 
         return head;
+    }
+};
+
+// soln2 Using only one pointer
+
+class Solution
+{
+public:
+    ListNode *deleteDuplicates(ListNode *head)
+    {
+
+        ListNode *result = new ListNode();
+        result->next = head;
+
+        ListNode *current = result;
+
+        while (current->next and current->next->next)
+        {
+            if (current->next->val == current->next->next->val)
+            {
+                ListNode *temp = current->next;
+                current->next = current->next->next;
+                delete temp;
+            }
+            else
+            {
+                current = current->next;
+            }
+        }
+
+        ListNode *newHead = result->next;
+        delete result;
+        return newHead;
     }
 };
