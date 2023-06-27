@@ -30,3 +30,25 @@ public:
         return climbStairs(n - 1) + climbStairs(n - 2);
     }
 };
+
+// sol2 using dinamic programming
+class Solution
+{
+public:
+    int climbStairs(int n)
+    {
+        int dp[2] = {1, 2};
+        int i = 3;
+        if (n == 1 || n == 2)
+            return n;
+
+        while (i <= n)
+        {
+            int temp = dp[1];
+            dp[1] = dp[0] + dp[1];
+            dp[0] = temp;
+            i++;
+        }
+        return dp[1];
+    }
+};
