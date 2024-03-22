@@ -65,3 +65,37 @@ public
         return -1; // If no pivot index is found, return -1
     }
 }
+
+//
+
+class Solution
+{
+public:
+    int pivotIndex(vector<int> &nums)
+    {
+        vector<int> pf(nums.size());
+        if (nums.size() == 1)
+            return 0;
+
+        pf[0] = nums[0];
+        for (int i = 1; i < nums.size(); i++)
+        {
+            pf[i] = pf[i - 1] + nums[i];
+        }
+
+        for (int i = 0; i < nums.size(); i++)
+        {
+            if (i == 0)
+            {
+                if (pf[0] - pf[nums.size() - 1] == 0)
+                    return 0;
+            }
+            else
+            {
+                if (pf[i - 1] == pf[nums.size() - 1] - pf[i])
+                    return i;
+            }
+        }
+        return -1;
+    }
+};
