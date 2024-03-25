@@ -39,3 +39,33 @@ public:
         return maxCount;
     }
 };
+
+// new code
+
+class Solution
+{
+public:
+    int maxSubArray(vector<int> &nums)
+    {
+        if (nums.size() == 1) // If there's only one element in nums
+            return nums[0];   // Return that element as the maximum subarray sum
+
+        int sum = 0;       // Initialize sum to keep track of current subarray sum
+        int ans = INT_MIN; // Initialize ans to store maximum subarray sum found so far
+
+        for (int i = 0; i < nums.size(); i++)
+        { // Iterate through elements of nums
+            if (sum >= 0)
+            {                   // If current sum is non-negative (previous subarray contributes positively)
+                sum += nums[i]; // Add current element to sum (expand current subarray)
+            }
+            else
+            {                  // If current sum is negative (previous subarray contributes negatively)
+                sum = nums[i]; // Start a new subarray from current element
+            }
+            ans = max(sum, ans); // Update ans with maximum of current sum and ans
+        }
+
+        return ans; // Return maximum subarray sum
+    }
+};
