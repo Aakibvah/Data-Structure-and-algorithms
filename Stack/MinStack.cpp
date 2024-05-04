@@ -85,3 +85,57 @@ public:
         return min_stack.top();
     }
 };
+
+// soln 2 using single stack
+
+class MinStack
+{
+public:
+    stack<long long> st;      // Stack to store elements and their minimum differences
+    long long minimumElement; // Variable to store the minimum element in the stack
+
+    // Constructor initializes minimumElement to 0
+    MinStack()
+    {
+        minimumElement = 0;
+    }
+
+    // Method to push an element onto the stack
+    void push(int val)
+    {
+        if (st.empty())
+        { // If stack is empty, set minimumElement to val
+            minimumElement = val;
+            st.push(0ll); // Push difference between val and minimumElement (0 initially)
+            return;
+        }
+
+        long long difference = val - minimumElement; // Calculate difference between val and minimumElement
+        st.push(difference);                         // Push difference onto the stack
+
+        if (val < minimumElement) // Update minimumElement if val is smaller
+            minimumElement = val;
+    }
+
+    // Method to pop the top element from the stack
+    void pop()
+    {
+        if (st.top() < 0) // If top element represents a smaller element, update minimumElement
+            minimumElement = minimumElement - st.top();
+        st.pop(); // Pop the top element from the stack
+    }
+
+    // Method to return the top element of the stack
+    int top()
+    {
+        if (st.top() < 0) // If top element represents a smaller element, return minimumElement
+            return minimumElement;
+        return minimumElement + st.top(); // Otherwise, return the actual value
+    }
+
+    // Method to return the minimum element in the stack
+    int getMin()
+    {
+        return minimumElement;
+    }
+};
