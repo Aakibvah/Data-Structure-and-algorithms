@@ -53,16 +53,6 @@ public:
             st.push(i);
         }
 
-        // Process any remaining elements in the stack
-        while (!st.empty())
-        {
-            int idx = st.top();
-            st.pop();
-            // If the span for this day hasn't been calculated yet (i.e., it's still 0), set it to 1
-            if (ans[idx] == 0)
-                ans[idx] = 1;
-        }
-
         // Return the vector containing the spans for each day
         return ans;
     }
