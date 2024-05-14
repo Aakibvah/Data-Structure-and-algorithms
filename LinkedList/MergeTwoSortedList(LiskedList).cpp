@@ -73,3 +73,42 @@ public:
         return head;
     }
 };
+/// optimal soln
+// Function to merge two sorted linked lists.
+Node *sortedMerge(Node *head1, Node *head2)
+{
+    // Create a new node to serve as the dummy node for the merged list.
+    // Initialize its data to -1. This node will be used to simplify the merging process.
+    Node *dNode = new Node(-1);
+    // Create a pointer 'temp' to traverse the merged list, initially pointing to the dummy node.
+    Node *temp = dNode;
+
+    // Traverse both input linked lists until either one becomes empty.
+    while (head1 != NULL && head2 != NULL)
+    {
+        // Compare the data of the current nodes of both lists.
+        if (head1->data < head2->data)
+        {
+            // If the data in head1 is smaller, connect the current node to temp and move head1 to its next node.
+            temp->next = head1;
+            temp = head1;
+            head1 = head1->next;
+        }
+        else
+        {
+            // If the data in head2 is smaller or equal, connect the current node to temp and move head2 to its next node.
+            temp->next = head2;
+            temp = head2;
+            head2 = head2->next;
+        }
+    }
+
+    // Connect the remaining nodes of the non-empty list to the merged list.
+    if (head1 != NULL)
+        temp->next = head1;
+    else
+        temp->next = head2;
+
+    // Return the next node of the dummy node, which is the starting node of the merged list.
+    return dNode->next;
+}
