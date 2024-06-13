@@ -12,6 +12,7 @@ Example 1:
 Input: root = [4,1,6,0,2,5,7,null,null,null,3,null,null,null,8]
 Output: [30,36,21,36,35,26,15,null,null,null,33,null,null,null,8]
 */
+// It Needs to traverse all node twice once for calculating sum and another time resetting node.
 class Solution
 {
 public:
@@ -51,6 +52,36 @@ public:
         sum = sum - temp;     // Subtract the original value of the node from sum
 
         inorder(root->right, sum); // Traverse the right subtree
+
+        return;
+    }
+};
+// The below solution used only one traverse using reverse inorder.
+
+class Solution
+{
+public:
+    TreeNode *bstToGst(TreeNode *root)
+    {
+        inorder(root); // Convert BST to GST using inorder traversal
+        return root;   // Return the modified tree
+    }
+
+    int greater = 0; // Variable to keep track of the accumulated sum of nodes
+
+    // Function to perform a reverse inorder traversal and update nodes
+    void inorder(TreeNode *root)
+    {
+        if (root == NULL)
+            return; // Base case: If the node is null, return
+
+        inorder(root->right); // Traverse the right subtree
+
+        // Update the current node's value with the accumulated sum
+        greater = greater + root->val;
+        root->val = greater;
+
+        inorder(root->left); // Traverse the left subtree
 
         return;
     }
