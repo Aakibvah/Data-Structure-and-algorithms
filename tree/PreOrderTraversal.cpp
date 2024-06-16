@@ -59,3 +59,52 @@ public:
         preTrav(root->right, a);
     }
 };
+
+class Solution
+{
+public:
+    vector<int> preorderTraversal(TreeNode *root)
+    {
+        if (root == NULL)
+            return {}; // If the tree is empty, return an empty vector
+
+        vector<int> preorder; // Vector to store the inorder traversal
+
+        TreeNode *curr = root; // Initialize current node to root
+
+        // Morris Inorder Traversal
+        while (curr != NULL)
+        {
+            if (curr->left == NULL)
+            {
+                // If there is no left child, visit the current node and go to the right
+                preorder.push_back(curr->val);
+                curr = curr->right;
+            }
+            else
+            {
+                // Find the inorder predecessor of the current node
+                TreeNode *prev = curr->left;
+                while (prev->right && prev->right != curr)
+                {
+                    prev = prev->right;
+                }
+
+                if (prev->right == NULL)
+                {
+                    // Make the current node as the right child of its inorder predecessor
+                    prev->right = curr;
+                    preorder.push_back(curr->val);
+                    curr = curr->left;
+                }
+                else
+                {
+                    // Revert the changes made in the tree
+                    prev->right = NULL;
+                    curr = curr->right;
+                }
+            }
+        }
+        return preorder;
+    }
+};
