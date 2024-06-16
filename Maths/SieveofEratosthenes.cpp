@@ -1,6 +1,7 @@
 /*
 Given a number N, calculate the prime numbers up to N using Sieve of Eratosthenes.
 Example 1:
+
 Input:
 N = 10
 Output:
@@ -41,8 +42,10 @@ public:
         // Add prime numbers to the 'prime' vector
         for (int i = 2; i <= N; i++)
         {
-            if (arr[i]) // If 'i' is prime
+            if (arr[i])
+            {
                 prime.push_back(i);
+            } // If 'i' is prime
         }
 
         // Return the vector containing all prime numbers up to 'N'
